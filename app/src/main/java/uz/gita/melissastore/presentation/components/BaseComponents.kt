@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.gita.melissastore.theme.TianLianSky
@@ -23,7 +24,9 @@ import uz.gita.melissastore.theme.TianLianSky
 fun EditTextField(
     value:String,
     onValueChange:(String)->Unit,
-    placeholder: String
+    placeholder: String,
+    trailingIcon:@Composable ()->Unit = {},
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ){
     OutlinedTextField(
         value = value,
@@ -42,18 +45,14 @@ fun EditTextField(
             focusedBorderColor = TianLianSky,
             unfocusedBorderColor = Color.Gray
         ),
-        placeholder = {
-            Text(
-                text = placeholder,
-                style = TextStyle(
-                    color = Color.Gray,
-                    fontSize = 20.sp
-                )
-            )
-        },
         shape = RoundedCornerShape(10.dp),
         label = {
             Text(text = placeholder)
-        }
+        },
+        trailingIcon = trailingIcon,
+        visualTransformation = visualTransformation,
+        textStyle = TextStyle(
+            fontSize = 17.sp
+        )
     )
 }

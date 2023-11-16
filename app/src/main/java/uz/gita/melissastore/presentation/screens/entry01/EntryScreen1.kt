@@ -1,6 +1,7 @@
 package uz.gita.melissastore.presentation.screens.entry01
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -23,12 +25,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.androidx.AndroidScreen
+import uz.gita.melissastore.R
 import uz.gita.melissastore.presentation.components.EditTextField
 import uz.gita.melissastore.theme.KarimunBlue
 import uz.gita.melissastore.theme.TianLianSky
@@ -37,7 +43,7 @@ import uz.gita.melissastore.theme.Typography
 class EntryScreen1 : AndroidScreen() {
     @Composable
     override fun Content() {
-
+        ScreenContent()
     }
 }
 
@@ -50,6 +56,10 @@ private fun ScreenContent(){
 
     var password by remember {
         mutableStateOf("")
+    }
+
+    var passwordIsEnabled by remember {
+        mutableStateOf(true)
     }
 
     Column(
@@ -128,6 +138,18 @@ private fun ScreenContent(){
                 password= it
             },
             placeholder = "Parolingizni kiriting",
+            trailingIcon = {
+                Icon(
+                    painter = if (passwordIsEnabled) painterResource(id = R.drawable.ic_visible) else painterResource(
+                        id = R.drawable.ic_invisible
+                    ),
+                    contentDescription = "Password show",
+                    modifier = Modifier.clickable {
+                        passwordIsEnabled = !passwordIsEnabled
+                    }
+                )
+            },
+            visualTransformation = if (passwordIsEnabled) VisualTransformation.None else PasswordVisualTransformation()
         )
 
 
