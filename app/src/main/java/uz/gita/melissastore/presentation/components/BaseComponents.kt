@@ -26,7 +26,8 @@ fun EditTextField(
     onValueChange:(String)->Unit,
     placeholder: String,
     trailingIcon:@Composable ()->Unit = {},
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    isError:Boolean = false
 ){
     OutlinedTextField(
         value = value,
@@ -53,6 +54,19 @@ fun EditTextField(
         visualTransformation = visualTransformation,
         textStyle = TextStyle(
             fontSize = 17.sp
-        )
+        ),
+        isError = isError,
+        supportingText = {
+            if (isError){
+                Text(
+                    text = "[3-10] belgidan iborat bo'lishi shart",
+                    color = Color.Red,
+                    style = TextStyle(
+                        fontSize = 16.sp
+                    )
+                )
+            }
+        },
+        maxLines = 1
     )
 }
